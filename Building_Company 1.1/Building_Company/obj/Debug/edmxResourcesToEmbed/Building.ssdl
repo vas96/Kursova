@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BuildingComnanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Building_manager">
+    <Key>
+      <PropertyRef Name="idManager" />
+    </Key>
+    <Property Name="idManager" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="surname" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="varchar" MaxLength="20" />
+    <Property Name="contactNumber" Type="char" MaxLength="18" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="idCustomer" />
+    </Key>
+    <Property Name="idCustomer" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="surname" Type="varchar" MaxLength="22" />
+    <Property Name="email" Type="char" MaxLength="18" />
+    <Property Name="contactNumber" Type="int" />
+    <Property Name="numPassport" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Leader">
+    <Key>
+      <PropertyRef Name="idLeader" />
+    </Key>
+    <Property Name="idLeader" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="surname" Type="varchar" MaxLength="20" />
+    <Property Name="contactNumber" Type="int" />
+  </EntityType>
+  <EntityType Name="Object_">
+    <Key>
+      <PropertyRef Name="idObject" />
+    </Key>
+    <Property Name="idObject" Type="datetime" Nullable="false" />
+    <Property Name="idCustomer" Type="int" />
+    <Property Name="price" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Specialization">
+    <Key>
+      <PropertyRef Name="idSpecialization" />
+    </Key>
+    <Property Name="idSpecialization" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="idWorker" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idUnit" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="idLeader" Type="int" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="idWorker" />
+    </Key>
+    <Property Name="idWorker" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="surname" Type="varchar" MaxLength="20" />
+    <Property Name="passportNum" Type="varchar" MaxLength="22" />
+    <Property Name="idSpecialization" Type="int" />
+    <Property Name="idWorkType" Type="int" />
+    <Property Name="contactNumber" Type="int" />
+  </EntityType>
+  <EntityType Name="Workers_Unit">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idWorker" Type="int" Nullable="false" />
+    <Property Name="idUnit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkSheldue">
+    <Key>
+      <PropertyRef Name="idWorkShedule" />
+    </Key>
+    <Property Name="idWorkShedule" Type="int" Nullable="false" />
+    <Property Name="idObject" Type="datetime" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="startWork" Type="datetime" />
+    <Property Name="finishWork" Type="datetime" />
+    <Property Name="idWorkType" Type="int" />
+    <Property Name="description" Type="varchar" MaxLength="20" />
+    <Property Name="idManager" Type="int" />
+  </EntityType>
+  <EntityType Name="WorkSheldue_Unit">
+    <Key>
+      <PropertyRef Name="idWorkShedule" />
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idWorkShedule" Type="int" Nullable="false" />
+    <Property Name="idUnit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkType">
+    <Key>
+      <PropertyRef Name="idWorkType" />
+    </Key>
+    <Property Name="idWorkType" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="R_10">
+    <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+    <End Role="Workers_Unit" Type="Self.Workers_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="Workers_Unit">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_12">
+    <End Role="Leader" Type="Self.Leader" Multiplicity="0..1" />
+    <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leader">
+        <PropertyRef Name="idLeader" />
+      </Principal>
+      <Dependent Role="Unit">
+        <PropertyRef Name="idLeader" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_19">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="Workers_Unit" Type="Self.Workers_Unit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="Workers_Unit">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_20">
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="1" />
+    <End Role="WorkSheldue_Unit" Type="Self.WorkSheldue_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkSheldue">
+        <PropertyRef Name="idWorkShedule" />
+      </Principal>
+      <Dependent Role="WorkSheldue_Unit">
+        <PropertyRef Name="idWorkShedule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_22">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+    <End Role="WorkSheldue_Unit" Type="Self.WorkSheldue_Unit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="WorkSheldue_Unit">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_24">
+    <End Role="Building_manager" Type="Self.Building_manager" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Building_manager">
+        <PropertyRef Name="idManager" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idManager" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_4">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Object_" Type="Self.Object_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="idCustomer" />
+      </Principal>
+      <Dependent Role="Object_">
+        <PropertyRef Name="idCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_5">
+    <End Role="Object_" Type="Self.Object_" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object_">
+        <PropertyRef Name="idObject" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idObject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_6">
+    <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="idWorkType" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idWorkType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_7">
+    <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+    <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="idWorkType" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="idWorkType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_8">
+    <End Role="Workers" Type="Self.Workers" Multiplicity="0..1" />
+    <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="idWorker" />
+      </Principal>
+      <Dependent Role="Specialization">
+        <PropertyRef Name="idWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BuildingComnanyModelStoreContainer">
+    <EntitySet Name="Building_manager" EntityType="Self.Building_manager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Leader" EntityType="Self.Leader" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Object_" EntityType="Self.Object_" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workers_Unit" EntityType="Self.Workers_Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkSheldue" EntityType="Self.WorkSheldue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkSheldue_Unit" EntityType="Self.WorkSheldue_Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkType" EntityType="Self.WorkType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="R_10" Association="Self.R_10">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Workers_Unit" EntitySet="Workers_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="R_12" Association="Self.R_12">
+      <End Role="Leader" EntitySet="Leader" />
+      <End Role="Unit" EntitySet="Unit" />
+    </AssociationSet>
+    <AssociationSet Name="R_19" Association="Self.R_19">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Workers_Unit" EntitySet="Workers_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="R_20" Association="Self.R_20">
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+      <End Role="WorkSheldue_Unit" EntitySet="WorkSheldue_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="R_22" Association="Self.R_22">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="WorkSheldue_Unit" EntitySet="WorkSheldue_Unit" />
+    </AssociationSet>
+    <AssociationSet Name="R_24" Association="Self.R_24">
+      <End Role="Building_manager" EntitySet="Building_manager" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_4" Association="Self.R_4">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Object_" EntitySet="Object_" />
+    </AssociationSet>
+    <AssociationSet Name="R_5" Association="Self.R_5">
+      <End Role="Object_" EntitySet="Object_" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_6" Association="Self.R_6">
+      <End Role="WorkType" EntitySet="WorkType" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_7" Association="Self.R_7">
+      <End Role="WorkType" EntitySet="WorkType" />
+      <End Role="Workers" EntitySet="Workers" />
+    </AssociationSet>
+    <AssociationSet Name="R_8" Association="Self.R_8">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Specialization" EntitySet="Specialization" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

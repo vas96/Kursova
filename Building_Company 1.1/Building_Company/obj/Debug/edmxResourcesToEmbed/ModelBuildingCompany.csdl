@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KR_BD2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CUSTOMERS">
+    <Key>
+      <PropertyRef Name="customerId" />
+    </Key>
+    <Property Name="customerId" Type="Int32" Nullable="false" />
+    <Property Name="customerName" Type="String" MaxLength="44" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contactLastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contatctFirstName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Name="contactPhone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="addresLine" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OBJECTS" Relationship="Self.R_18" FromRole="CUSTOMERS" ToRole="OBJECTS" />
+  </EntityType>
+  <EntityType Name="EMPLOYEES">
+    <Key>
+      <PropertyRef Name="employeeId" />
+    </Key>
+    <Property Name="employeeId" Type="Int32" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="53" FixedLength="false" Unicode="false" />
+    <Property Name="birthDate" Type="DateTime" Precision="0" />
+    <Property Name="homePhone" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+    <Property Name="hereDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="addressLine" Type="String" MaxLength="84" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="salary" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="officeId" Type="Int32" />
+    <NavigationProperty Name="OFFICES" Relationship="Self.R_51" FromRole="EMPLOYEES" ToRole="OFFICES" />
+    <NavigationProperty Name="UNITS" Relationship="Self.EMPLOYEES_UNITS" FromRole="EMPLOYEES" ToRole="UNITS" />
+    <NavigationProperty Name="SPECIALITY" Relationship="Self.SPECIALITY_EMPLOYEES" FromRole="EMPLOYEES" ToRole="SPECIALITY" />
+  </EntityType>
+  <EntityType Name="MATERIAL">
+    <Key>
+      <PropertyRef Name="idMatterial" />
+    </Key>
+    <Property Name="idMatterial" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="integer_" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="used_materials" Relationship="Self.R_52" FromRole="MATERIAL" ToRole="used_materials" />
+  </EntityType>
+  <EntityType Name="OBJECTS">
+    <Key>
+      <PropertyRef Name="idObject" />
+    </Key>
+    <Property Name="idObject" Type="Int32" Nullable="false" />
+    <Property Name="orderData" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="comments" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="addressLine" Type="String" MaxLength="74" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="customerId" Type="Int32" />
+    <NavigationProperty Name="CUSTOMERS" Relationship="Self.R_18" FromRole="OBJECTS" ToRole="CUSTOMERS" />
+    <NavigationProperty Name="used_materials" Relationship="Self.R_40" FromRole="OBJECTS" ToRole="used_materials" />
+    <NavigationProperty Name="WorkSheldue" Relationship="Self.R_41" FromRole="OBJECTS" ToRole="WorkSheldue" />
+  </EntityType>
+  <EntityType Name="OFFICES">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="officeId" Type="Int32" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="adressLine" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="C_default_" Type="String" MaxLength="22" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EMPLOYEES" Relationship="Self.R_51" FromRole="OFFICES" ToRole="EMPLOYEES" />
+  </EntityType>
+  <EntityType Name="SPECIALITY">
+    <Key>
+      <PropertyRef Name="idSpeciality" />
+    </Key>
+    <Property Name="idSpeciality" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EMPLOYEES" Relationship="Self.SPECIALITY_EMPLOYEES" FromRole="SPECIALITY" ToRole="EMPLOYEES" />
+  </EntityType>
+  <EntityType Name="SUPPLIERS">
+    <Key>
+      <PropertyRef Name="supplierID" />
+    </Key>
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="companyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contactName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="contactPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="homePage" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="used_materials" Relationship="Self.R_47" FromRole="SUPPLIERS" ToRole="used_materials" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UNITS">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idUnit" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="used_materials" Relationship="Self.R_28" FromRole="UNITS" ToRole="used_materials" />
+    <NavigationProperty Name="WorkSheldue" Relationship="Self.R_46" FromRole="UNITS" ToRole="WorkSheldue" />
+    <NavigationProperty Name="EMPLOYEES" Relationship="Self.EMPLOYEES_UNITS" FromRole="UNITS" ToRole="EMPLOYEES" />
+  </EntityType>
+  <EntityType Name="used_materials">
+    <Key>
+      <PropertyRef Name="used_Material_Id" />
+    </Key>
+    <Property Name="used_Material_Id" Type="Int32" Nullable="false" />
+    <Property Name="idObject" Type="Int32" />
+    <Property Name="number" Type="Int32" />
+    <Property Name="uniPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="idUnit" Type="Int32" />
+    <Property Name="supplierID" Type="Int32" />
+    <Property Name="idMatterial" Type="Int32" />
+    <NavigationProperty Name="MATERIAL" Relationship="Self.R_52" FromRole="used_materials" ToRole="MATERIAL" />
+    <NavigationProperty Name="OBJECTS" Relationship="Self.R_40" FromRole="used_materials" ToRole="OBJECTS" />
+    <NavigationProperty Name="SUPPLIERS" Relationship="Self.R_47" FromRole="used_materials" ToRole="SUPPLIERS" />
+    <NavigationProperty Name="UNITS" Relationship="Self.R_28" FromRole="used_materials" ToRole="UNITS" />
+  </EntityType>
+  <EntityType Name="WorkSheldue">
+    <Key>
+      <PropertyRef Name="idWorkShedule" />
+    </Key>
+    <Property Name="idWorkShedule" Type="Int32" Nullable="false" />
+    <Property Name="idObject" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="startWork" Type="DateTime" Precision="0" />
+    <Property Name="finishWork" Type="DateTime" Precision="0" />
+    <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="idUnit" Type="Int32" />
+    <Property Name="workTypeId" Type="Int32" />
+    <NavigationProperty Name="OBJECTS" Relationship="Self.R_41" FromRole="WorkSheldue" ToRole="OBJECTS" />
+    <NavigationProperty Name="UNITS" Relationship="Self.R_46" FromRole="WorkSheldue" ToRole="UNITS" />
+    <NavigationProperty Name="WorkType" Relationship="Self.R_49" FromRole="WorkSheldue" ToRole="WorkType" />
+  </EntityType>
+  <EntityType Name="WorkType">
+    <Key>
+      <PropertyRef Name="workTypeId" />
+    </Key>
+    <Property Name="workTypeId" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="WorkSheldue" Relationship="Self.R_49" FromRole="WorkType" ToRole="WorkSheldue" />
+  </EntityType>
+  <Association Name="R_18">
+    <End Role="CUSTOMERS" Type="Self.CUSTOMERS" Multiplicity="0..1" />
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMERS">
+        <PropertyRef Name="customerId" />
+      </Principal>
+      <Dependent Role="OBJECTS">
+        <PropertyRef Name="customerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_51">
+    <End Role="OFFICES" Type="Self.OFFICES" Multiplicity="0..1" />
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OFFICES">
+        <PropertyRef Name="officeId" />
+      </Principal>
+      <Dependent Role="EMPLOYEES">
+        <PropertyRef Name="officeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_52">
+    <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MATERIAL">
+        <PropertyRef Name="idMatterial" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idMatterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_40">
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OBJECTS">
+        <PropertyRef Name="idObject" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idObject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_41">
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OBJECTS">
+        <PropertyRef Name="idObject" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idObject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_47">
+    <End Role="SUPPLIERS" Type="Self.SUPPLIERS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUPPLIERS">
+        <PropertyRef Name="supplierID" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="supplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_28">
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNITS">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_46">
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNITS">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_49">
+    <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="workTypeId" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="workTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EMPLOYEES_UNITS">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="*" />
+  </Association>
+  <Association Name="SPECIALITY_EMPLOYEES">
+    <End Role="SPECIALITY" Type="Self.SPECIALITY" Multiplicity="*" />
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="KR_BD2Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CUSTOMERS" EntityType="Self.CUSTOMERS" />
+    <EntitySet Name="EMPLOYEES" EntityType="Self.EMPLOYEES" />
+    <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" />
+    <EntitySet Name="OBJECTS" EntityType="Self.OBJECTS" />
+    <EntitySet Name="OFFICES" EntityType="Self.OFFICES" />
+    <EntitySet Name="SPECIALITY" EntityType="Self.SPECIALITY" />
+    <EntitySet Name="SUPPLIERS" EntityType="Self.SUPPLIERS" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="UNITS" EntityType="Self.UNITS" />
+    <EntitySet Name="used_materials" EntityType="Self.used_materials" />
+    <EntitySet Name="WorkSheldue" EntityType="Self.WorkSheldue" />
+    <EntitySet Name="WorkType" EntityType="Self.WorkType" />
+    <AssociationSet Name="R_18" Association="Self.R_18">
+      <End Role="CUSTOMERS" EntitySet="CUSTOMERS" />
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+    </AssociationSet>
+    <AssociationSet Name="R_51" Association="Self.R_51">
+      <End Role="OFFICES" EntitySet="OFFICES" />
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="R_52" Association="Self.R_52">
+      <End Role="MATERIAL" EntitySet="MATERIAL" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_40" Association="Self.R_40">
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_41" Association="Self.R_41">
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_47" Association="Self.R_47">
+      <End Role="SUPPLIERS" EntitySet="SUPPLIERS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_28" Association="Self.R_28">
+      <End Role="UNITS" EntitySet="UNITS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_46" Association="Self.R_46">
+      <End Role="UNITS" EntitySet="UNITS" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_49" Association="Self.R_49">
+      <End Role="WorkType" EntitySet="WorkType" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="EMPLOYEES_UNITS" Association="Self.EMPLOYEES_UNITS">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="UNITS" EntitySet="UNITS" />
+    </AssociationSet>
+    <AssociationSet Name="SPECIALITY_EMPLOYEES" Association="Self.SPECIALITY_EMPLOYEES">
+      <End Role="SPECIALITY" EntitySet="SPECIALITY" />
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(KR_BD2Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(KR_BD2Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

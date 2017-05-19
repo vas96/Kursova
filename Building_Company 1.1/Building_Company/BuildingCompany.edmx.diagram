@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="397b8ce4777a4fe6898ea0ee89414c06" Name="Diagram1">
+        <EntityTypeShape EntityType="KR_BD2Model.CUSTOMER" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.EMPLOYEE" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.MATERIAL" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.OBJECT" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.OFFICE" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.SPECIALITY" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.SUPPLIER" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.sysdiagram" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.UNIT" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.used_materials" Width="1.5" PointX="7.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.WorkSheldue" Width="1.5" PointX="10.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="KR_BD2Model.WorkType" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="KR_BD2Model.R_18" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_51" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_52" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_40" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_41" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_47" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_28" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_46" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.R_49" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.EMPLOYEES_UNITS" ManuallyRouted="false" />
+        <AssociationConnector Association="KR_BD2Model.SPECIALITY_EMPLOYEES" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

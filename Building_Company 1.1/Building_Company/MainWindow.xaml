@@ -1,0 +1,1593 @@
+﻿<controls:MetroWindow x:Class="Building_Company.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Building_Company"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        ResizeMode="NoResize"
+        xmlns:databinding="clr-namespace:Building_Company"
+        mc:Ignorable="d"
+        Title="Building_Company_App" Height="471" Width="843" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:CustomerNameConverter x:Key="CustomerConverter"></local:CustomerNameConverter>
+            <local:ObjectNameConverter x:Key="ObjetConverter"></local:ObjectNameConverter>
+            <local:SpecialityNameConverter x:Key="SpecialityNameConverter"></local:SpecialityNameConverter>
+            <local:UnitNameConverter x:Key="UnitNameConverter"></local:UnitNameConverter>
+            <local:WorkTypeNameConverter x:Key="WorkTypeNameConverter"></local:WorkTypeNameConverter>
+            <local:OfficeNameConverter x:Key="OfficeNameConverter"></local:OfficeNameConverter>
+            <local:MaterialNameConverter x:Key="MaterialNameConverter"></local:MaterialNameConverter>
+            <local:SuplierrNameConverter x:Key="SuplierrNameConverter"></local:SuplierrNameConverter>
+            <local:SpecialtyListConverter x:Key="SpecialtyListConverter"></local:SpecialtyListConverter>
+            <local:unityListConverter x:Key="UnityListConverter"></local:unityListConverter>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Content="Help" Click="ButtonBase_OnClick"/>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20"
+                   Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_camera_flash}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="VAS" />
+                </StackPanel>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <Grid Margin="0,0,4,-241">
+
+        <TabControl x:Name="TabControl1" Margin="10,10,10,252">
+
+            <TabItem x:Name="tab1" Header="Замовники">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxSearchCust" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                за №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Контактним ім'ям
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Контактним прізвищем
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Країною
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Містом
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Адресою
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Номером телефону
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchCustomer" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchCustomer_TextChanged"></TextBox>
+
+                        <Button x:Name="addCustomerButt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addCustomerButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updCustomerBut" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0" Height="30" VerticalAlignment="Top" Click="updCustomerBut_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delCustomerBut" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,2,2,2" Click="delCustomerBut_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+
+                        <Button x:Name="reportCustomers" HorizontalAlignment="Left" Height="30" Width="110" Style="{StaticResource AccentedSquareButtonStyle}" Margin="152,2,2,2" Click="reportCustomers_Click">
+                            Звіт замовників
+                        </Button>
+                    </DockPanel>
+
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridCustomers" HorizontalAlignment="Left" 
+            		Margin="10,5,0,0" VerticalAlignment="Top"
+            		Height="317" Width="796"
+            		AutoGenerateColumns="False"
+            		ItemsSource="{Binding}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+            				Binding="{Binding customerId, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Назва"
+                            Binding="{Binding customerName, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="контактне Ім'я"
+            				Binding="{Binding contatctFirstName, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="контактне Прізвище"
+                            Binding="{Binding contactLastName, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="країна"
+            				Binding="{Binding country, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="місто"
+            				Binding="{Binding city, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="адреса"                    
+            				Binding="{Binding addresLine, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Номер телефону"
+            				Binding="{Binding contactPhone, Mode=TwoWay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="BorderAddCustomer" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                        <Grid Name="addECustomer" HorizontalAlignment="Left" Width="240">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="empLabe2l0" Content="Додати нового замовника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="custFirstName" HorizontalAlignment="Left" Height="23" Margin="108,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Grid.Row="1"/>
+                            <Label x:Name="empLab2el1" Content="Ім'я" HorizontalAlignment="Left" Margin="9,29,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.103,0.52"/>
+                            <Label x:Name="empLabe2l3" Content="Назва ФО/ПП" HorizontalAlignment="Left" Margin="9,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="custname" HorizontalAlignment="Left" Margin="108,90,-1,0" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <TextBox x:Name="custSurname" HorizontalAlignment="Left" Height="23" Margin="107,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="empLab2el2" Content="Прізвище" HorizontalAlignment="Left" Margin="9,59,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addCustomerBut" Content="Додати Замовника" HorizontalAlignment="Left" Margin="9,248,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229" Click="addCustomerBut_Click" />
+                            <TextBox x:Name="custPhone" HorizontalAlignment="Left" Height="23" Margin="107,121,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" Grid.Row="1"/>
+                            <Label x:Name="empLabe2l6" Content="Телефон" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="custAdress" HorizontalAlignment="Left" Height="23" Margin="105,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <Label x:Name="adressEmp2" Content="Адреса" HorizontalAlignment="Left" Margin="9,218,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+                            <TextBox x:Name="custCity" HorizontalAlignment="Left" Height="23" Margin="107,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <Label x:Name="adressEmp2_Copy" Content="Місто" HorizontalAlignment="Left" Margin="9,187,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+                            <Button x:Name="HidenAddCustomerButt" Content="Приховати" HorizontalAlignment="Left" Margin="10,281,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229" Click="HidenAddCustomerButt_Click"/>
+                            <TextBox x:Name="custCountry" HorizontalAlignment="Left" Height="23" Margin="107,154,0,0" TextWrapping="Wrap" Text="Україна" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <Label x:Name="countryCustAdd" Content="Країна" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+
+                        </Grid>
+                    </Border>
+                    <Border x:Name="BorderUpdCustomer" BorderBrush="CornflowerBlue" BorderThickness="3"
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" Width="250">
+                        <Grid x:Name="addECustomer1" HorizontalAlignment="Left" Width="240">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="empLabe2l1" Content="Редагування замовника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="updCustFirstName" HorizontalAlignment="Left" Height="23" Margin="108,29,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.contatctFirstName, ElementName=GridCustomers}" VerticalAlignment="Top" Width="130" Grid.Row="1"/>
+                            <Label x:Name="empLab2el3" Content="Ім'я" HorizontalAlignment="Left" Margin="9,29,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.103,0.52"/>
+                            <Label x:Name="empLabe2l2" Content="Назва ФО/ПП" HorizontalAlignment="Left" Margin="9,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="updCustname" HorizontalAlignment="Left" Margin="108,90,-1,0" VerticalAlignment="Top" Text="{Binding SelectedItem.customerName, ElementName=GridCustomers}" Width="133" Grid.Row="1"/>
+                            <TextBox x:Name="updCustSurname" HorizontalAlignment="Left" Height="23" Margin="107,59,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.contactLastName, ElementName=GridCustomers}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="empLab2el4" Content="Прізвище" HorizontalAlignment="Left" Margin="9,59,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="updCustomerButton" Content="Редагувати Замовника" HorizontalAlignment="Left" Margin="9,248,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229" Click="updCustomerButton_Click" />
+                            <TextBox x:Name="updCustPhone" HorizontalAlignment="Left" Height="23" Margin="107,121,-1,0" TextWrapping="Wrap" Text="{Binding SelectedItem.contactPhone, ElementName=GridCustomers}" VerticalAlignment="Top" Width="134" Grid.Row="1"/>
+                            <Label x:Name="empLabe2l4" Content="Телефон" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="updCustAdress" HorizontalAlignment="Left" Height="23" Margin="105,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding SelectedItem.addresLine, ElementName=GridCustomers}" Width="133" Grid.Row="1"/>
+                            <Label x:Name="adressEmp3" Content="Адреса" HorizontalAlignment="Left" Margin="9,218,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+                            <TextBox x:Name="updCustCity" HorizontalAlignment="Left" Height="23" Margin="107,186,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.city, ElementName=GridCustomers}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <Label x:Name="adressEmp2_Copy1" Content="Місто" HorizontalAlignment="Left" Margin="9,187,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+                            <Button x:Name="HidenUpdCustomerButt" Content="Приховати" HorizontalAlignment="Left" Margin="9,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="229" Click="HidenUpdCustomerButt_Click" />
+                            <TextBox x:Name="updCustCountry" HorizontalAlignment="Left" Height="23" Margin="107,154,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.country, ElementName=GridCustomers}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                            <Label x:Name="countryCustAdd1" Content="Країна" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.739,-1.08"/>
+
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+            <TabItem x:Name="tab2" Header="Об'єкти">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxSearchObj" DockPanel.Dock="Left" Height="33" Width="94" Margin="2,6">
+
+                            <ComboBoxItem>
+                                за №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Датою замовлення
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за адресою
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Замовником
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchObj" Width="159" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="4,6,2,6" TextChanged="TextBoxSearchObj_TextChanged"></TextBox>
+
+                        <Button x:Name="addObjBut" ToolTip="Додати запис"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0" Click="addObj_Click" VerticalAlignment="Top">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updObjBut" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0" Click="UpdObj_Click" Height="30" VerticalAlignment="Top">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delObjBut" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delObj_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="priceObj" HorizontalAlignment="Left" Height="30" Width="189" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7" Click="priceObj_Click">
+                            Обрахувати ціну та прибуток(1)
+                        </Button>
+                        <Button x:Name="priceObj_Copy" HorizontalAlignment="Left" Height="30" Width="95" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7"  Content="Для всіх(all)" Click="priceObj_Copy_Click"/>
+
+                        <Button x:Name="reportObjManager" HorizontalAlignment="Left" Height="30" Width="115" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="reportObjManager_Click">
+                            Звіт об'єктів
+                        </Button>
+
+                    </DockPanel>
+
+                    <DataGrid x:Name="GridObjects" HorizontalAlignment="Left" 
+            		Margin="10,19,0,0" VerticalAlignment="Top"
+            		Height="304" Width="796"
+            		AutoGenerateColumns="False"
+            		ItemsSource="{Binding}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№"
+            				Binding="{Binding idObject, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Назва"
+            				Binding="{Binding comments, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Дата замовлення"
+            				Binding="{Binding orderData, Mode=TwoWay,StringFormat=\{0:dd.MM.yy\}}"/>
+                            <DataGridTextColumn Header="Статус"
+            				Binding="{Binding status, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Адреса"
+            				Binding="{Binding addressLine, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="ID замовника"
+            				Binding="{Binding customerId, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Замовник"
+            				Binding="{Binding customerId, Mode=TwoWay,Converter={StaticResource CustomerConverter}}"/>
+                            <DataGridTextColumn Header="Ціна"
+            				Binding="{Binding price, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Прибуток"
+            				Binding="{Binding income, Mode=TwoWay}"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Border x:Name="BorderAddObj" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,17,0,3" Width="251">
+                        <Grid Name="addObject" Margin="3,-4,-3,4" ZIndex="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="labelObjAdd" Content="Додати нове замовлення" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="textBoxNameObj" HorizontalAlignment="Left" Height="23" Margin="104,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_Copy" Content="Назва" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Label x:Name="label_Copy1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="button1" Content="Додати об'єкт будівництва" HorizontalAlignment="Left" Margin="10,233,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="button1_Click"/>
+                            <Label x:Name="label_Copy2" Content="Країна:" HorizontalAlignment="Left" Margin="17,62,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+
+
+
+                            <TextBox x:Name="adrText1_Obj" HorizontalAlignment="Left" Height="23" Margin="104,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="adrLabel1_Copy" Content="Місто" HorizontalAlignment="Left" Margin="18,93,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                            <Label x:Name="adrLabel3_Copy" Content="Номер будинку" HorizontalAlignment="Left" Margin="10,160,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="adrText2_Obj" HorizontalAlignment="Left" Height="23" Margin="104,125,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="adrLabel2_Copy" Content="Вулиця" HorizontalAlignment="Left" Margin="16,126,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.478,1.16"/>
+                            <TextBox x:Name="adrText3_Obj" HorizontalAlignment="Left" Height="23" Margin="104,159,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                            <TextBox x:Name="textBoxCountryObj" HorizontalAlignment="Left" Height="23" Margin="104,61,0,0" TextWrapping="Wrap" Text="Україна" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="LabelCopy3" Content="Замовник" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <ComboBox x:Name="CustomerListObj" HorizontalAlignment="Left" Margin="104,196,0,0" Grid.Row="1" VerticalAlignment="Top" Width="131"/>
+                            <Button x:Name="button1_Copy" Content="Приховати" HorizontalAlignment="Left" Margin="10,272,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="button1_Copy_Click"/>
+
+                        </Grid>
+                    </Border>
+
+
+                    <Border x:Name="BorderUpdObj" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,17,0,3" Width="251">
+
+                        <Grid Name="UpdObject" Margin="3,-3,-3,3" ZIndex="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="labelObjUpd" Content="Редагувати замовлення" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="textBoxNameUpd" HorizontalAlignment="Left" Height="23" Margin="104,29,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.comments, ElementName=GridObjects}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_CopyUpd" Content="Назва" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Label x:Name="label_Copy1Upd" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="buttonUpdObj" Content="Редагувати об'єкт будівництва" HorizontalAlignment="Left" Margin="10,233,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="buttonUpdObj_Click" />
+                            <Label x:Name="label_Copy2Upd" Content="Країна:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="-0.422,0.56"/>
+                            <Label x:Name="adrLabel3_CopyUpd" Content="Адреса" HorizontalAlignment="Left" Margin="10,97,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="adrText3_ObjUpd" HorizontalAlignment="Left" Height="23" Margin="104,96,0,0"  TextWrapping="Wrap" Text="{Binding SelectedItem.addressLine, ElementName=GridObjects}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                            <TextBox x:Name="textBoxCountryObjUpd" HorizontalAlignment="Left" Height="23" Margin="104,61,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.country, ElementName=GridObjects}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                            <Label x:Name="LabelCopy3Upd" Content="Замовник" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <ComboBox x:Name="CustomerListObjUpd" HorizontalAlignment="Left" Margin="104,199,0,0" Grid.Row="1" VerticalAlignment="Top" Width="131" Text="fsdfsfds">
+
+                            </ComboBox>
+                            <Button x:Name="button1_CopyUpd" Content="Приховати" HorizontalAlignment="Left" Margin="10,271,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Height="29" Click="button1_CopyUpd_Click"/>
+                            <Label x:Name="adrLabel3_CopyUpd_Copy" Content="Статус" HorizontalAlignment="Left" Margin="10,146,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.391,0.56"/>
+                            <Label x:Name="adrLabel3_CopyUpd_Copy1" Content="{Binding SelectedItem.customerId, ElementName=GridObjects}" HorizontalAlignment="Left" Margin="191,174,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.391,0.56" Width="44" Height="25"/>
+                            <Label x:Name="adrLabel3_CopyUpd_Copy2" Content="№ замовника" HorizontalAlignment="Left" Margin="104,174,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.391,0.56" Width="87"/>
+                            <Label x:Name="adrLabel3_CopyUpd_Copy3"  Content="{Binding SelectedItem.status, ElementName=GridObjects}" HorizontalAlignment="Left" Margin="101,122,0,0"  VerticalAlignment="Top" Grid.Row="1" Width="134"/>
+                            <ComboBox x:Name="statusBuild"  HorizontalAlignment="Left"  Margin="104,146,0,0" Grid.Row="1" VerticalAlignment="Top" Width="131" >
+                                <ComboBoxItem>завершено</ComboBoxItem>
+                                <ComboBoxItem>будівництво</ComboBoxItem>
+                            </ComboBox>
+
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+            <TabItem x:Name="tab3" Header="Графіки робіт">
+
+
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxWHsearchOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,6,2,6">
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                За Початком роботи
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Завершенням роботи
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                за Описом
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchWH" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchWH_TextChanged"></TextBox>
+
+                        <Button x:Name="addWHBut"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addWH_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updWHBut" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0" Click="UpdWH_Click" Height="30" VerticalAlignment="Top">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delWHBut" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delWH_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </DockPanel>
+
+                    <Grid Background="White">
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridWorkScheldue" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="307" Width="796"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding ''}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+                             Binding="{Binding idWorkShedule, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="№ Oбєкта"
+                             Binding="{Binding idObject, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Oбєкт"
+                             Binding="{Binding idObject, Converter={StaticResource ObjetConverter}, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="назва"
+                             Binding="{Binding name, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Тип роботи"
+                             Binding="{Binding workTypeId, Converter={StaticResource WorkTypeNameConverter}, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Початок роботи"
+                             Binding="{Binding startWork, Mode=TwoWay, StringFormat=\{0:dd.MM.yy\}}"/>
+                                    <DataGridTextColumn Header="Кінець роботи"
+                             Binding="{Binding finishWork, Mode=TwoWay, StringFormat=\{0:dd.MM.yy\}}"/>
+                                    <DataGridTextColumn Header="Опис"
+                             Binding="{Binding description, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Підрозліл"
+                             Binding="{Binding idUnit, Converter={StaticResource UnitNameConverter}, Mode=TwoWay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border x:Name="BorderAddWH" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                                <Grid x:Name="addWorkSH" HorizontalAlignment="Left" Width="240">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="342*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="idObjLabel" Content="Додати новий графік робіт" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                    <TextBox x:Name="textBoxWHidoBJ" HorizontalAlignment="Left" Height="23" Margin="104,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                                    <Label x:Name="label_" Content="ID Обєкта" HorizontalAlignment="Left" Margin="17,30,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="label_Copy12" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Button x:Name="addWH" Content="Додати новий графік робіт" HorizontalAlignment="Left" Margin="10,248,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Height="28" Click="addWH_Click_1"/>
+
+
+
+                                    <TextBox x:Name="WHName" HorizontalAlignment="Left" Height="23" Margin="104,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="WHstartWork" Content="Назва" HorizontalAlignment="Left" Margin="17,61,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.59,-0.6"/>
+                                    <Label x:Name="WHfinishWork" Content="Кінець роботи" HorizontalAlignment="Left" Margin="4,123,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                                    <DatePicker x:Name="WHstartWorkpick" HorizontalAlignment="Left" Height="23" Margin="104,91,0,0"   VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel2_Co1py" Content="Початок роботи" HorizontalAlignment="Left" Margin="0,92,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.478,1.16"/>
+                                    <DatePicker x:Name="WHfinishWorkpick" HorizontalAlignment="Left" Height="23" Margin="104,122,0,0"  VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+
+
+                                    <TextBox x:Name="WHdescription" HorizontalAlignment="Left" Height="23" Margin="104,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y3" Content="Опис" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y3_Copy" Content="Підрозділ" HorizontalAlignment="Left" Margin="8,217,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y3_Copy1" Content="Тип роботи" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <ComboBox x:Name="WHWorkType" HorizontalAlignment="Left" Height="23" Margin="104,184,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Button x:Name="closeAddWH" Content="Приховати" HorizontalAlignment="Left" Margin="10,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Height="20" Click="closeAddWH_Click" />
+                                    <ComboBox x:Name="WHWorkUnit" HorizontalAlignment="Left" Height="23" Margin="104,217,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                </Grid>
+                            </Border>
+                            <Border x:Name="BorderUpdWH" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="245">
+                                <Grid x:Name="addWorkSH1" HorizontalAlignment="Left" Width="240">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="342*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="idObjLabel1" Content="Редагувати графік робіт" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                    <Label x:Name="label_Copy3" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Button x:Name="UpdWHButt" Content="Редагувати графік робіт" HorizontalAlignment="Left" Margin="10,233,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Height="35" Click="UpdWHButt_Click"/>
+
+
+
+                                    <TextBox x:Name="WHNameUpd" HorizontalAlignment="Left" Height="23" Margin="104,28,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.name, ElementName=GridWorkScheldue}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="WHstartWork1" Content="Назва" HorizontalAlignment="Left" Margin="17,29,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.59,-0.6"/>
+                                    <Label x:Name="WHfinishWork1" Content="Кінець роботи" HorizontalAlignment="Left" Margin="10,90,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.084,0.52"/>
+                                    <DatePicker x:Name="WHstartWorkpickUpd" HorizontalAlignment="Left" Height="23" Margin="104,59,0,0" Text="{Binding SelectedItem.startWork, ElementName=GridWorkScheldue}"  VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel2_Co1py1" Content="Початок роботи" HorizontalAlignment="Left" Margin="0,60,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.478,1.16"/>
+                                    <DatePicker x:Name="WHfinishWorkpickUpd" HorizontalAlignment="Left" Height="23" Margin="104,90,0,0" Text="{Binding SelectedItem.finishWork, ElementName=GridWorkScheldue}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+
+
+                                    <TextBox x:Name="WHdescriptionUpd" HorizontalAlignment="Left" Height="44" Margin="104,121,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.description, ElementName=GridWorkScheldue}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y1" Content="Опис" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y3_Copy2" Content="Id підрозділа" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="label_Cop1y3_Copy3" Content="Тип роботи" HorizontalAlignment="Left" Margin="12,171,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <ComboBox x:Name="WHWorkTypeUpd" HorizontalAlignment="Left" Height="23" Margin="106,170,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Button x:Name="UpdWH_Close" Content="Приховати" HorizontalAlignment="Left" Margin="10,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Height="35" Click="UpdWH_Close_Click" />
+                                    <Label x:Name="label_Cop1y1_Copy" Content="{Binding SelectedItem.workTypeId, ElementName=GridWorkScheldue}" HorizontalAlignment="Left" Margin="104,147,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <ComboBox x:Name="WHWorUnitUpd" HorizontalAlignment="Left" Height="23" Margin="106,201,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+            <TabItem x:Name="tab4" Header="Види робіт">
+
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxWtOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchWt" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchWt_TextChanged" ></TextBox>
+
+                        <Button x:Name="addWtButt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addWtButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updWtButt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updWtButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delWtButt" Visibility="Collapsed" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delWt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </DockPanel>
+
+
+                    <Grid Background="#FFE5E5E5">
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridWorkTypes" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="307" Width="786"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding }">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+                             Binding="{Binding workTypeId, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Тип"
+                             Binding="{Binding name, Mode=TwoWay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="BorderAddWt" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                        <Grid Name="addWorkType" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1ObjAdd" Content="Додати новий тип робіт" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="WorkTypeNameAdd" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1opy" Content="Назва" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C1opy1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addWorkTypeBut" Content="Додати новий тип роботи" HorizontalAlignment="Left" Margin="10,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addWorkTypeBut_Click" />
+                            <Button x:Name="HiddenAddWorkTypeBut" Content="Приховати" Margin="10,153,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.267,1.111" Click="HiddenAddWorkTypeBut_Click" />
+
+                        </Grid>
+                    </Border>
+                    <Border x:Name="BorderUpdWt" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" Width="251">
+                        <Grid x:Name="addWorkType1" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1ObjAdd1" Content="Редагувати тип робіт" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="WorkTypenameUpd" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.name, ElementName=GridWorkTypes}"  VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1opy2" Content="Назва" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C1opy3" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="updWorkTypeBut1" Content="Редагувати тип роботи" HorizontalAlignment="Left" Margin="10,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="updWorkTypeBut1_Click" />
+                            <Button x:Name="HiddenUpdWorkTypeBut" Content="Приховати" HorizontalAlignment="Left" Margin="10,153,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="HiddenUpdWorkTypeBut_Click" />
+
+                        </Grid>
+                    </Border>
+
+                </DockPanel>
+            </TabItem>
+
+            <TabItem x:Name="tab5" Header="Використані матеріали">
+                <DockPanel>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                            <ComboBox x:Name="ComboBoxSpecialityOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                                <ComboBoxItem IsSelected="True">
+                                    За №
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    За № об'єкта
+                                </ComboBoxItem>
+
+                                <ComboBoxItem>
+                                    За № підрозділа
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    За Кількістю
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    За Ціною
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    За № постачальника
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    За № Матеріалу
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Name="TextBoxSearchUsedMaerial" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchUsedMaerial_TextChanged" ></TextBox>
+
+                            <Button x:Name="addUsedMaterialButt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addUsedMaterialButt_Click">
+                                <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+
+                            <Button x:Name="updUsedMaterialButt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updUsedMaterialButt_Click">
+                                <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+
+                            <Button x:Name="delUsedMaterialButt" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delUsedMaterialButt_Click">
+                                <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </DockPanel>
+                        <Grid Background="White">
+                            <StackPanel Orientation="Horizontal">
+                                <DataGrid x:Name="GridSUsedMaterials" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="317" Width="796"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding }">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID" 
+                             Binding="{Binding used_Material_Id, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="id Обєкта"
+                             Binding="{Binding idObject, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="Обєкт"
+                             Binding="{Binding idObject, Converter={StaticResource ObjetConverter}, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="№ підроздіа"
+                             Binding="{Binding idUnit, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="Підрозділ"
+                             Binding="{Binding idUnit,Converter={StaticResource UnitNameConverter}, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="Кількість"
+                             Binding="{Binding number, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="Ціна"
+                             Binding="{Binding uniPrice, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="№ постачальника"
+                             Binding="{Binding supplierID, Mode=TwoWay}"/>
+                                        <DataGridTextColumn Header="Постачальник"
+                             
+                                                            Binding="{Binding supplierID, Mode=TwoWay,Converter={StaticResource SuplierrNameConverter}}"/>
+                                        <DataGridTextColumn Header=" № матеріалу"
+                             Binding="{Binding idMatterial, Mode=TwoWay}"/>
+
+                                        <DataGridTextColumn Header="матеріал"
+                             Binding="{Binding idMatterial, Mode=TwoWay, Converter={StaticResource MaterialNameConverter}}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Border x:Name="BorderAddUsedMaterial" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                                    <Grid Name="addObject11" Margin="3,-3,-3,3">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="342*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label x:Name="labelObjAd1d" Content="Додати новий матеріал для підрозділа" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                        <TextBox x:Name="UsedMaterrialOb1j" HorizontalAlignment="Left" Height="23" Margin="104,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                                        <Label x:Name="label_Copy111111" Content="Обєкт №" HorizontalAlignment="Left" Margin="17,29,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy1111111" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Button x:Name="AddUsedMaterial" Content="Додати матеріали для підрозділа" HorizontalAlignment="Left" Margin="10,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="AddUsedMaterial_Click" />
+                                        <Label x:Name="adrLabel1_Co1py" Content="Підрозділ" HorizontalAlignment="Left" Margin="17,66,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="adrLabel3_Co1py" Content="Ціна" HorizontalAlignment="Left" Margin="17,133,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                                        <TextBox x:Name="UsedMaterrial_KilkMaterial" HorizontalAlignment="Left" Height="23" Margin="104,98,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Label x:Name="adrLabel2_Co11py" Content="Кількість" HorizontalAlignment="Left" Margin="17,99,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.478,1.16"/>
+                                        <TextBox x:Name="UsedMaterrial_Price" HorizontalAlignment="Left" Height="23" Margin="104,132,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                                        <ComboBox x:Name="UsedMaterrialMaterial" HorizontalAlignment="Left" Height="23" Margin="104,202,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy13" Content="Постачальник" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy4" Content="Матеріал" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.556,2.6"/>
+                                        <ComboBox x:Name="UsedMaterrialsuppilers" HorizontalAlignment="Left" Height="23" Margin="104,167,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Button x:Name="AddUsedMaterialHiden" Content="Приховати" HorizontalAlignment="Left" Margin="10,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="AddUsedMaterialHiden_Click"/>
+                                        <ComboBox x:Name="UsedMaterrialUnit" HorizontalAlignment="Left" Height="23" Margin="104,65,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                                    </Grid>
+                                </Border>
+                                <Border x:Name="BorderUpdUsedMaterial" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                                HorizontalAlignment="Left" 
+                                Margin="10,10,0,0" Width="251">
+                                    <Grid x:Name="addObject1" Margin="3,-3,-3,3">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="342*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label x:Name="labelObjAd1d1" Content="Додати новий матеріал для підрозділа" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                        <TextBox x:Name="UpdUsedMaterrialObj" HorizontalAlignment="Left" Height="23" Margin="104,29,0,0" TextWrapping="Wrap"  Text="{Binding SelectedItem.idObject, ElementName=GridSUsedMaterials}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                                        <Label x:Name="label_Copy5" Content="Обєкт №" HorizontalAlignment="Left" Margin="17,29,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy6" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Button x:Name="UpdUsedMaterial" Content="Редагувати матер. для підрозділа" HorizontalAlignment="Left" Margin="10,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="UpdUsedMaterial_Click"/>
+                                        <Label x:Name="adrLabel1_Co1py1" Content="Підрозділ" HorizontalAlignment="Left" Margin="17,66,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="adrLabel3_Co1py1" Content="Ціна" HorizontalAlignment="Left" Margin="17,133,0,0"  VerticalAlignment="Top" Grid.Row="1"/>
+                                        <TextBox x:Name="UpdUsedMaterrial_KilkMaterial" HorizontalAlignment="Left" Height="23" Margin="104,98,0,0"  TextWrapping="Wrap" Text="{Binding SelectedItem.number, ElementName=GridSUsedMaterials}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Label x:Name="adrLabel2_Co11py1" Content="Кількість" HorizontalAlignment="Left" Margin="17,99,0,0"  VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.478,1.16"/>
+                                        <TextBox x:Name="UpdUsedMaterrial_Price" HorizontalAlignment="Left" Height="23" Margin="104,132,0,0"  TextWrapping="Wrap" Text="{Binding SelectedItem.price, ElementName=GridSUsedMaterials}" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                                        <ComboBox x:Name="UpdUsedMaterrialMaterial" HorizontalAlignment="Left" Height="23" Margin="104,202,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy7" Content="Постачальник" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                        <Label x:Name="label_Copy8" Content="Матеріал" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.556,2.6"/>
+                                        <ComboBox x:Name="UpdUsedMaterrialsuppilers" HorizontalAlignment="Left" Height="23" Margin="104,167,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                        <Button x:Name="AddUsedMaterialHiden1" Content="Приховати" HorizontalAlignment="Left" Margin="10,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="AddUsedMaterialHiden1_Click"  />
+                                        <ComboBox x:Name="UpdUsedMaterrialUnit" HorizontalAlignment="Left" Height="23" Margin="104,65,0,0" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem x:Name="tab6" Header="Матеріали">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxMaterialOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchMaterial" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchWt_TextChanged" ></TextBox>
+
+                        <Button x:Name="addMaterialButt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addMaterialButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Button x:Name="updMaterialButt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updMaterialButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delMaterialButt" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delMaterialButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </DockPanel>
+
+
+
+
+                    <DockPanel>
+                        <DataGrid x:Name="GridMaterials" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="345" Width="786"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding }">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" 
+                             Binding="{Binding idMatterial, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="нaзва"
+                             Binding="{Binding name, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Одиниця вимірювання"
+                             Binding="{Binding integer_, Mode=TwoWay}"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Border x:Name="BorderAddMaterial" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251" RenderTransformOrigin="0.701,0.461">
+                            <Grid Name="addWork1Type" Margin="3,-3,-3,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="label1Obj1Add" Content="Додати матеріал" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                <TextBox x:Name="materialName" HorizontalAlignment="Left" Height="23" Margin="130,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="105" Grid.Row="1"  />
+                                <Label x:Name="label_C1o1py" Content="Назва" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                                <Label x:Name="label_C1op1y1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Button x:Name="addMaterialBu1t" Content="Додати матеріал" HorizontalAlignment="Left" Margin="10,152,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addMaterialBu1t_Click" />
+                                <TextBox x:Name="WorkType1name_Copy" HorizontalAlignment="Left" Height="23" Margin="130,99,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="105" Grid.Row="1"  />
+                                <Label x:Name="label_C1o1py_Copy" Content="Одиниці вимірювання" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Grid.Row="1" Width="125"/>
+                                <Button x:Name="addMaterialBu1t_Hiden" Content="Приховати" HorizontalAlignment="Left" Margin="10,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addMaterialBu1t_Hiden_Click" />
+                            </Grid>
+                        </Border>
+                        <Border x:Name="BorderUpdMaterial" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251" RenderTransformOrigin="0.701,0.461">
+                            <Grid x:Name="addWork1Type1" Margin="3,-3,-3,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="label1Obj1Add1" Content="Редагувати матеріал" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                <TextBox x:Name="UpdmaterialName1" HorizontalAlignment="Left" Height="23" Margin="130,50,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.name, ElementName=GridMaterials}" VerticalAlignment="Top" Width="105" Grid.Row="1"  />
+                                <Label x:Name="label_C1o1py1" Content="Назва" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                                <Label x:Name="label_C1op1y2" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Button x:Name="updMaterialBu1t1" Content="Редагувати матеріал" HorizontalAlignment="Left" Margin="10,152,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="updMaterialBu1t1_Click"/>
+                                <TextBox x:Name="UpdIntger" HorizontalAlignment="Left" Height="23" Margin="130,99,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.integer_, ElementName=GridMaterials}" VerticalAlignment="Top" Width="105" Grid.Row="1"  />
+                                <Label x:Name="label_C1o1py_Copy1" Content="Одиниці вимірювання" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Grid.Row="1" Width="125"/>
+                                <Button x:Name="UpdMaterialBu1t_Hiden1" Content="Приховати" HorizontalAlignment="Left" Margin="10,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="UpdMaterialBu1t_Hiden1_Click" />
+                            </Grid>
+                        </Border>
+
+                    </DockPanel>
+                </DockPanel>
+
+            </TabItem>
+
+            <TabItem x:Name="tab7" Header="Постачальники">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxOptionSupplierSearch" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+                            <ComboBoxItem >
+                                за №
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою компанії
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Контактним іменем
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Країною
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Адресою
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Телефоном
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Факсом
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Веб-сторінкою
+                            </ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBox Name="TextBoxSearchSuppliers" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchSuppliers_TextChanged"></TextBox>
+
+                        <Button x:Name="addSuppliersBut"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addSuppliersBut_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updSuppliersBut" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0" Height="30" VerticalAlignment="Top" Click="updSuppliersBut_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delSuppliersBut" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delSuppliersBut_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="reportsUP" HorizontalAlignment="Left" Height="30" Width="130" Style="{StaticResource AccentedSquareButtonStyle}" Margin="152,2,2,2" Click="reportsUP_Click">
+                            Звіт постачальників
+                        </Button>
+                    </DockPanel>
+                    <Grid Background="White">
+                        <StackPanel Orientation="Horizontal" Margin="10,0,-10,0">
+                            <DataGrid x:Name="GridSuppliers" HorizontalAlignment="Left" 
+                             Margin="10,10,0,0" VerticalAlignment="Top"
+            			Height="315" Width="786"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding }">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+                             Binding="{Binding supplierID, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="компанія"
+                             Binding="{Binding companyName, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="контактне імя"
+                             Binding="{Binding contactName, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="країна"
+                             Binding="{Binding country, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="адреса"
+                             Binding="{Binding address, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Телефон"
+                             Binding="{Binding contactPhone, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="fax"
+                             Binding="{Binding fax, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="веб Сторінка"
+                             Binding="{Binding homePage, Mode=TwoWay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Border x:Name="BorderAddSupplier" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="342*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="adrLabel01" Content="Додати нового постачальника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                    <TextBox x:Name="SupplierCompanyName" HorizontalAlignment="Left" Height="23" Margin="108,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel11" Content="Компанія" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel13" Content="Країна" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="SupplierContatName" HorizontalAlignment="Left" Height="23" Margin="108,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel12" Content="Контактне імя" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel15" Content="* - поле може бути пустим" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Button x:Name="addNewSuppliersBut" Content="Додати постачальника" HorizontalAlignment="Left" Margin="10,246,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.5,0.5" Click="addNewSuppliersBut_Click"/>
+                                    <TextBox x:Name="SupplierFax" HorizontalAlignment="Left" Height="23" Margin="108,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel16" Content="Fax*" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="SupplierCountry" HorizontalAlignment="Left" Height="23" Margin="108,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <TextBox x:Name="SupplierWebPage" HorizontalAlignment="Left" Height="23" Margin="108,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel16_Copy" Content="WebPage*" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel13_Copy" Content="Адреса" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="SupplierAddres" HorizontalAlignment="Left" Height="23" Margin="108,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel13_Copy1" Content="Телефон" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="SupplierPhone" HorizontalAlignment="Left" Height="23" Margin="108,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Button x:Name="UpdNewSuppliersBut" Content="Приховати" HorizontalAlignment="Left" Margin="10,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.5,0.5" Click="UpdNewSuppliersBut_Click"/>
+
+                                </Grid>
+                            </Border>
+                            <Border x:Name="BorderUpdSupplier" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="342*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label x:Name="adrLabel1" Content="Редагувати постачальника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                    <TextBox x:Name="UpdSupplierCompanyName1" HorizontalAlignment="Left" Height="23" Margin="108,29,0,0" Text="{Binding SelectedItem.companyName, ElementName=GridSuppliers}" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel2" Content="Компанія" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel3" Content="Країна" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="UpdSupplierContatName1" HorizontalAlignment="Left" Height="23" Margin="108,60,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.contactName, ElementName=GridSuppliers}" VerticalAlignment="Top" Width="132" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel4" Content="Контактне імя" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel5" Content="* - поле може бути пустим" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Button x:Name="addNewSuppliersBut1" Content="Редагувати постачальника" HorizontalAlignment="Left" Margin="10,246,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.5,0.5" Click="addNewSuppliersBut1_Click"/>
+                                    <TextBox x:Name="UpdSupplierFax1" Text="{Binding SelectedItem.fax, ElementName=GridSuppliers}"  HorizontalAlignment="Left" Height="23" Margin="108,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel6" Content="Fax*" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="UpdSupplierCountry1" HorizontalAlignment="Left" Height="23" Margin="108,91,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.country, ElementName=GridSuppliers}"   VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <TextBox x:Name="UpdSupplierWebPage1" Text="{Binding SelectedItem.homePage, ElementName=GridSuppliers}"  HorizontalAlignment="Left" Height="23" Margin="108,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel16_Copy1" Content="WebPage*" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel13_Copy2" Content="Адреса" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="UpdSupplierAddres1" Text="{Binding SelectedItem.address, ElementName=GridSuppliers}"  HorizontalAlignment="Left" Height="23" Margin="108,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Label x:Name="adrLabel13_Copy3" Content="Телефон"  HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBox x:Name="UpdSupplierPhone1" HorizontalAlignment="Left" Height="23" Margin="108,153,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.contactPhone, ElementName=GridSuppliers}"  VerticalAlignment="Top" Width="131" Grid.Row="1"/>
+                                    <Button x:Name="UpdNewSuppliersBut1" Content="Приховати" HorizontalAlignment="Left" Margin="10,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.5,0.5" Click="UpdNewSuppliersBut1_Click"/>
+
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem x:Name="tab8" Header="Працівники">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxSearchOptionEmp" DockPanel.Dock="Left" Height="33" Width="88" Margin="9,2,2,2">
+                            <ComboBoxItem >
+                                за №
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">
+                                за Ім'ям
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Прізвищем
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Номером телефону
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за E-mail
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Датою народження
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Поступленням на роботу
+                            </ComboBoxItem>
+
+                            <ComboBoxItem>
+                                за Зарплатою
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchEmployee" Width="123" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,6,9,5" TextChanged="TextBoxSearchEmployee_TextChanged" ></TextBox>
+
+                        <Button x:Name="addEmpButtShow"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addEmpButtShow_Click" >
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updEmpShow" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updEmpShow_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delEmp" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delEmp_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Label HorizontalAlignment="Left" Height="30" Width="auto" Margin="12,2,2,2">Додати=></Label>
+                        <Button x:Name="addSpecialityEmpShow" HorizontalAlignment="Left" Height="30" Width="86" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7" Click="addSpecialityEmpShow_Click" >
+                            Спеціальності
+                        </Button>
+                        <Button x:Name="addUnitEmpShow" HorizontalAlignment="Left" Height="30" Width="71" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7" Click="addUnitEmpShow_Click" >
+                            Підрозділи
+                        </Button>
+                        <Button x:Name="addInBDEmpShow" HorizontalAlignment="Left" Height="30" Width="126" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7" Click="addInBDEmpShow_Click" >
+                            Доступ до програми
+                        </Button>
+                        <Button x:Name="ReportEmp" HorizontalAlignment="Left" Height="30" Width="55" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="ReportEmp_Click" >
+                            Звіт
+                        </Button>
+                    </DockPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <DataGrid x:Name="GridEmployees" HorizontalAlignment="Left" 
+            		Margin="10,10,0,0" VerticalAlignment="Top"
+            		Height="315" Width="786"
+            		AutoGenerateColumns="False"
+                               SelectionMode="Extended" SelectionUnit="FullRow">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="№" 
+            				Binding="{Binding employeeId, Mode=TwoWay}"/>
+                                <DataGridTextColumn x:Name="ColumnSpeciality" Header="Спеціальності" 
+            				Binding="{Binding employeeId,Converter={StaticResource SpecialtyListConverter},Mode=TwoWay}"/>
+                                <DataGridTextColumn x:Name="ColumUnit" Header="Підрозділи" 
+            				Binding="{Binding employeeId,Converter={StaticResource UnityListConverter},Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Ім'я"
+            				Binding="{Binding firstName, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Прізвище"
+            				Binding="{Binding lastName, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Номер телефону"
+            				Binding="{Binding homePhone, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="email"
+            				Binding="{Binding email, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Дата народження"
+            				Binding="{Binding birthDate, Mode=TwoWay,StringFormat=\{0:dd.MM.yy\}}"/>
+                                <DataGridTextColumn Header="Поступив на роботу"
+            				Binding="{Binding hereDate, Mode=TwoWay,StringFormat=\{0:dd.MM.yy\}}"/>
+                                <DataGridTextColumn Header="Зарплата"
+            				Binding="{Binding salary, Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="філія"
+            				Binding="{Binding officeId,Converter={StaticResource OfficeNameConverter}, Mode=TwoWay}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Border x:Name="BorderAddEmp" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                            <Grid Name="addEmployee" HorizontalAlignment="Left" Width="240">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="empLabel0" Content="Додати нового працівника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                <TextBox x:Name="empText1" HorizontalAlignment="Left" Height="23" Margin="108,29,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel1" Content="Ім'я" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label x:Name="empLabel3" Content="Email" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empEmail" HorizontalAlignment="Left" Margin="108,90,-1,0" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <TextBox x:Name="empText2" HorizontalAlignment="Left" Height="23" Margin="107,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel2" Content="Прізвище" HorizontalAlignment="Left" Margin="12,59,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empText3" HorizontalAlignment="Left" Height="23" Margin="108,157,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel4" Content="Зарплата" HorizontalAlignment="Left" Margin="9,158,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label x:Name="empLabel5" Content="Філія  " HorizontalAlignment="Left" Margin="9,189,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <ComboBox x:Name="empCombo2" HorizontalAlignment="Left" Margin="107,188,0,0" VerticalAlignment="Top" Width="131" Grid.Row="1" Height="25"/>
+                                <Button x:Name="button" Content="Додати працівника" HorizontalAlignment="Left" Margin="9,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="128" Click="button_Click_1"/>
+                                <TextBox x:Name="empText4" HorizontalAlignment="Left" Height="23" Margin="107,126,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" Grid.Row="1"/>
+                                <Label x:Name="empLabel6" Content="Телефон" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <DatePicker  x:Name="birthDateEmp"  HorizontalAlignment="Left" Margin="107,219,0,0" Grid.Row="1" VerticalAlignment="Top" Width="131"/>
+                                <Label x:Name="empLabel5_Copy" Content="Дата народження" HorizontalAlignment="Left" Margin="8,220,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empText3_adress" HorizontalAlignment="Left" Height="23" Margin="105,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="adressEmp" Content="Адреса" HorizontalAlignment="Left" Margin="12,250,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Button x:Name="hidenAddEmp" Content="Приховати" HorizontalAlignment="Left" Margin="152,281,0,0" Grid.Row="1" VerticalAlignment="Top" Width="78" Click="hidenAddEmp_Click" />
+
+                            </Grid>
+                        </Border>
+                        <Border x:Name="BorderUpdEmp" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                            <Grid x:Name="addEmployee1" HorizontalAlignment="Left" Width="240">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="empLabel7" Content="Редагувати працівника" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                                <TextBox x:Name="empNameUpd" HorizontalAlignment="Left" Height="23" Margin="108,29,-1,0" TextWrapping="Wrap" Text="{Binding SelectedItem.firstName, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel8" Content="Ім'я" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label x:Name="empLabel9" Content="Email" HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empEmailUpd" HorizontalAlignment="Left" Margin="108,90,-1,0" VerticalAlignment="Top" Text="{Binding SelectedItem.email, ElementName=GridEmployees}" Width="133" Grid.Row="1"/>
+                                <TextBox x:Name="empSurnameUpd" HorizontalAlignment="Left" Height="23" Margin="107,59,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.lastName, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel10" Content="Прізвище" HorizontalAlignment="Left" Margin="12,59,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empSalaryUpd" HorizontalAlignment="Left" Height="23" Margin="108,157,-1,0" TextWrapping="Wrap" Text="{Binding SelectedItem.salary, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel11" Content="Зарплата" HorizontalAlignment="Left" Margin="9,158,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Label x:Name="empLabel12" Content="Філія" HorizontalAlignment="Left" Margin="9,189,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <ComboBox x:Name="empOfficeUpd" HorizontalAlignment="Left" Margin="107,188,0,0" VerticalAlignment="Top" Width="131" Grid.Row="1" Height="25"/>
+                                <Button x:Name="UpdateEmpButt" Content="Редагувати прац." HorizontalAlignment="Left" Margin="9,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="127" Click="UpdateEmpButt_Click" />
+                                <TextBox x:Name="empPhoneUpd" HorizontalAlignment="Left" Height="23" Margin="107,126,-1,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding SelectedItem.homePhone, ElementName=GridEmployees}" Width="134" Grid.Row="1"/>
+                                <Label x:Name="empLabel13" Content="Телефон" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <DatePicker  x:Name="birthDateEmpUpd"  HorizontalAlignment="Left" Margin="107,219,0,0" Grid.Row="1" VerticalAlignment="Top" Width="131"/>
+                                <Label x:Name="empLabel5_Copy1" Content="Дата народження" HorizontalAlignment="Left" Margin="8,220,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="emp_adressUpd" HorizontalAlignment="Left" Height="23" Margin="105,250,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.addressLine, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="adressEmp1" Content="Адреса" HorizontalAlignment="Left" Margin="12,250,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <Button x:Name="hidenEmpUpd" Content="Приховати" HorizontalAlignment="Left" Margin="152,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="80" Click="hidenEmpUpd_Click"/>
+
+                            </Grid>
+                        </Border>
+                        <Border x:Name="BorderUpdAddSpeciality" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                            <Grid x:Name="addEmployee2" HorizontalAlignment="Left" Width="240" Margin="-3,-3,0,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="empLabel14" Content="Додати спеціальністть" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empNameUpd1" HorizontalAlignment="Left" Height="23" Margin="100,39,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.lastName, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel15" Content="Працівник" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Grid.Row="1" Width="85" RenderTransformOrigin="0.471,1.16"/>
+                                <Button x:Name="addEmpButt" Content="Додати спеціальність прац." HorizontalAlignment="Left" Margin="10,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="222" Height="42" Click="addEmpButt_Click" />
+                                <Button x:Name="hidenEmpUpd1" Content="Приховати" HorizontalAlignment="Left" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="hidenEmpUpd1_Click"/>
+                                <ComboBox x:Name="comboBoxAddSpecialityEmp" HorizontalAlignment="Left" Margin="10,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" RenderTransformOrigin="0.626,0.385"/>
+                                <Button x:Name="EmpClearSpeiality" Content="Очистити" HorizontalAlignment="Left" Margin="10,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="EmpClearSpeiality_Click"/>
+
+                            </Grid>
+                        </Border>
+                        <Border x:Name="BorderUpdAddSpeciality_Copy" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                            <Grid x:Name="addEmployee3" HorizontalAlignment="Left" Width="240" Margin="-3,-3,0,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="empLabel16" Content="Додати підрозділ" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empNameUpd2" HorizontalAlignment="Left" Height="23" Margin="100,39,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.lastName, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel17" Content="Працівник" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Grid.Row="1" Width="85" RenderTransformOrigin="0.471,1.16"/>
+                                <Button x:Name="addUnitButt1" Content="Додати підрозділ прац." HorizontalAlignment="Left" Margin="10,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="222" Height="42" Click="addUnitButt1_Click" />
+                                <Button x:Name="hidenEmpUpd2" Content="Приховати" HorizontalAlignment="Left" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="hidenEmpUpd2_Click"/>
+                                <ComboBox x:Name="comboBoxAddUnitEmp" HorizontalAlignment="Left" Margin="10,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" RenderTransformOrigin="0.626,0.385"/>
+                                <Button x:Name="EmpClearUnit" Content="Очистити" HorizontalAlignment="Left" Margin="10,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="EmpClearUnit_Click"/>
+
+                            </Grid>
+                        </Border>
+                        <Border x:Name="BorderUpdAddSpeciality_Copy1" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="250">
+                            <Grid x:Name="addEmployee4" HorizontalAlignment="Left" Width="240" Margin="-3,-3,0,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="342*"/>
+                                </Grid.RowDefinitions>
+                                <Label x:Name="empLabel18" Content="Додати/редагувати можливість входу" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                                <TextBox x:Name="empNameUpd3" HorizontalAlignment="Left" Height="23" Margin="100,39,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.lastName, ElementName=GridEmployees}" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel19" Content="Працівник" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Grid.Row="1" Width="85" RenderTransformOrigin="0.471,1.16"/>
+                                <Button x:Name="addBDuser" Content="Додати ." HorizontalAlignment="Left" Margin="10,179,0,0" Grid.Row="1" VerticalAlignment="Top" Width="222" Height="42" Click="addBDuser_Click"/>
+                                <Button x:Name="hidenEmpUpd3" Content="Приховати" HorizontalAlignment="Left" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="hidenEmpUpd3_Click"/>
+                                <ComboBox x:Name="comboBDwork" HorizontalAlignment="Left" Margin="13,103,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" RenderTransformOrigin="0.626,0.385">
+                                    <ComboBoxItem IsSelected="True">admin</ComboBoxItem>
+                                    <ComboBoxItem>managerEmployee</ComboBoxItem>
+                                    <ComboBoxItem>managerBuilding</ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="EmpClearUnit1" Content="Видалити" HorizontalAlignment="Left" Margin="10,235,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="30" Click="EmpClearUnit1_Click"/>
+                                <Label x:Name="empLabel19_Copy" Content="Тип працівника із базою даних" HorizontalAlignment="Left" Margin="13,73,0,0" VerticalAlignment="Top" Grid.Row="1" Width="167" RenderTransformOrigin="0.471,1.16"/>
+                                <TextBox x:Name="emPasswp" HorizontalAlignment="Left" Height="23" Margin="103,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Grid.Row="1"/>
+                                <Label x:Name="empLabel19_Copy1" Content="Пароль" HorizontalAlignment="Left" Margin="13,141,0,0" VerticalAlignment="Top" Grid.Row="1" Width="85" RenderTransformOrigin="0.471,1.16"/>
+
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem x:Name="tab9" Header="Cпеціальності">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxSpecialityOptio1n" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearchSpeciality" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearchSpeciality_TextChanged" ></TextBox>
+
+                        <Button x:Name="addSpecialityBu1tt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addSpecialityButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updSpecialityButt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updSpecialityButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delSpecialityButt" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delSpecialityButt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </DockPanel>
+
+
+                    <Grid Background="#FFE5E5E5">
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridSpeciality" HorizontalAlignment="Left" 
+            			Margin="10,10,0,0" VerticalAlignment="Top"
+            			Height="317" Width="786"
+            			AutoGenerateColumns="False"
+            			ItemsSource="{Binding ''}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+            					Binding="{Binding idSpeciality, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="ID типів"
+            					Binding="{Binding name, Mode=TwoWay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border x:Name="BorderAddSpeciality" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                        <Grid Name="addSpeciality" Margin="3,-3,-3,3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1O1bjAdd" Content="Додати нову спеціальність" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="Specialityename" HorizontalAlignment="Left" Height="23" Margin="104,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C11opy" Content="Назва" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C11opy1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addSpecialityBut" Content="Додати нову спеціальність" HorizontalAlignment="Left" Margin="10,93,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addSpecialityBut_Click" />
+                            <Button x:Name="HidenSpecialityBut" Content="Приховати" HorizontalAlignment="Left" Margin="10,125,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="HidenSpecialityBut_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="BorderUpdSpeciality" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" Width="251">
+                        <Grid x:Name="addSpeciality1" Margin="3,-3,-3,3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1O1bjAdd1" Content="Редагувати спеціальність" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                            <TextBox x:Name="updSpecialityename" HorizontalAlignment="Left" Height="23" Margin="104,50,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.name, ElementName=GridSpeciality}"  VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C11opy2" Content="Назва" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C11opy3" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="UpdSpecialityBut" Content="Редагувати спеціальність" HorizontalAlignment="Left" Margin="10,93,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="UpdSpecialityBut_Click" />
+                            <Button x:Name="HidenUpdSpecialityBut1" Content="Приховати" HorizontalAlignment="Left" Margin="10,125,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="HidenUpdSpecialityBut1_Click"/>
+                        </Grid>
+                    </Border>
+                </DockPanel>
+            </TabItem>
+
+
+
+            <TabItem x:Name="tab10" Header="Офіси">
+
+                <DockPanel Margin="3,2,-3,-2">
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboBoxW11tOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Офісом
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSea11rchWt" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSea11rchWt_TextChanged" ></TextBox>
+
+                        <Button x:Name="addWtBu1tt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addWtBu1tt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updWtB1utt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updWtB1utt_Click" >
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delWt1Butt" Visibility="Collapsed" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="delWt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </DockPanel>
+
+
+                    <Grid Background="#FFE5E5E5">
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridOffices" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="307" Width="786"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding _buldOfiOfficess}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" 
+                             Binding="{Binding officeId, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Офіс"
+                             Binding="{Binding city, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Країна"
+                             Binding="{Binding country, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Адреса"
+                             Binding="{Binding adressLine, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Номер телефона"
+                             Binding="{Binding phone, Mode=TwoWay}"/>
+
+                                </DataGrid.Columns>
+
+
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="Border1AddWt" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                        <Grid Name="addWo1rkType" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1ObjA1dd" Content="Додати новий офіс" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="OfficeNameAdd" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y" Content="Офіс" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C11opy11" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addOfficeBut" Content="Додати новий офіс" HorizontalAlignment="Left" Margin="10,228,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addOfficeBut_Click" />
+                            <Button x:Name="Hidd1enAddWorkTypeBut" Content="Приховати" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.267,1.111" Click="Hidd1enAddWorkTypeBut_Click" />
+                            <TextBox x:Name="OfficeNameAdd_Copy" HorizontalAlignment="Left" Height="23" Margin="104,107,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy" Content="Країна" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <TextBox x:Name="OfficeNameAdd_Copy1" HorizontalAlignment="Left" Height="23" Margin="104,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy1" Content="Адреса" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <TextBox x:Name="OfficeNameAdd_Copy2" HorizontalAlignment="Left" Height="23" Margin="104,186,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy2" Content="Номер тел." HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+
+                        </Grid>
+                    </Border>
+                    <Border x:Name="Border1AddWt_Copy" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" Width="251">
+                        <Grid x:Name="addWo1rkType1" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1ObjA1dd1" Content="Редагуати" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="OfficeNameAdd1" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.city, ElementName=GridOffices}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y1" Content="Офіс" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C11opy4" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addOfficeBut1" Content="Редагувати офіс" HorizontalAlignment="Left" Margin="10,228,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addOfficeBut1_Click" />
+                            <Button x:Name="Hidd1enAddWorkTypeBut1" Content="Приховати" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.267,1.111" Click="Hidd1enAddWorkTypeBut1_Click" />
+                            <TextBox x:Name="OfficeNameAdd_Copy3" HorizontalAlignment="Left" Height="23" Margin="104,107,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.country, ElementName=GridOffices}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy3" Content="Країна" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <TextBox x:Name="OfficeNameAdd_Copy4" HorizontalAlignment="Left" Height="23" Margin="104,147,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.adressLine, ElementName=GridOffices}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy4" Content="Адреса" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <TextBox x:Name="OfficeNameAdd_Copy5" HorizontalAlignment="Left" Height="23" Margin="104,186,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.phone, ElementName=GridOffices}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_Copy5" Content="Номер тел." HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+
+                        </Grid>
+                    </Border>
+
+                </DockPanel>
+            </TabItem>
+
+
+            <TabItem x:Name="tab11" Header="Підрозділи">
+
+                <DockPanel Margin="3,2,-3,-2">
+                    <DockPanel DockPanel.Dock="Top" Height="44" Background="CornflowerBlue">
+                        <ComboBox x:Name="ComboxUnitOption" DockPanel.Dock="Left" Height="33" Width="159" Margin="9,2,2,2">
+
+                            <ComboBoxItem>
+                                За №
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsSelected="True">
+                                за Назвою
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                        <TextBox Name="TextBoxSearcUnit" Width="195" DockPanel.Dock="Left" Height="33" HorizontalAlignment="Left" Margin="9,0,9,0" TextChanged="TextBoxSearcUnit_TextChanged" ></TextBox>
+
+                        <Button x:Name="addUnitBu1tt"  HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2" Click="addUnitBu1tt_Click">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_add}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="updUnitB1utt" HorizontalAlignment="Left" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2,7,2,0"  Height="30" VerticalAlignment="Top" Click="updUnitB1utt_Click" >
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button x:Name="delUnit" Visibility="Collapsed" HorizontalAlignment="Left" Height="30" Width="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="2">
+                            <Rectangle Fill="Black" Width="21" Height="18" VerticalAlignment="Stretch">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_page_delete}" Stretch="Fill" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                    </DockPanel>
+
+
+                    <Grid Background="#FFE5E5E5">
+                        <StackPanel Orientation="Horizontal">
+                            <DataGrid x:Name="GridUnits" HorizontalAlignment="Left" 
+                              Margin="10,10,0,0" VerticalAlignment="Top"
+                              Height="307" Width="786"
+                                AutoGenerateColumns="False"
+                              ItemsSource="{Binding _buldsUnits}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="№" 
+                             Binding="{Binding idUnit, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Назва"
+                             Binding="{Binding name, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Опис"
+                             Binding="{Binding comments, Mode=TwoWay}"/>
+
+                                </DataGrid.Columns>
+
+
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="BorderUnitAdd" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" Width="251">
+                        <Grid Name="addWo1rk1Type" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="la1bel1ObjA1dd" Content="Додати новий підрозділ" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="Of1ficeNameAdd" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="labe1l_C1o1p1y" Content="Назва" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="labe1l_C11opy11" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="add1OfficeBut" Content="Додати новий підрозділ" HorizontalAlignment="Left" Margin="10,228,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="add1OfficeBut_Click" />
+                            <Button x:Name="Hid1d1enAddWorkTypeBut" Content="Приховати" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.267,1.111" Click="Hid1d1enAddWorkTypeBut_Click"  />
+                            <TextBox x:Name="Off1iceNameAdd_Copy" HorizontalAlignment="Left" Height="109" Margin="104,107,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="labe1l_C1o1p1y_Copy" Content="Коментар" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+
+                        </Grid>
+                    </Border>
+                    <Border x:Name="BorderUpdUnit" BorderBrush="CornflowerBlue" BorderThickness="3"
+                            
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,0,0" Width="251">
+                        <Grid x:Name="addWo1rkTyp1e1" Margin="3,-3,7,3" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="342*"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="label1O1bjA1dd1" Content="Редагуати підрозділ" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <TextBox x:Name="Office1NameAdd1" HorizontalAlignment="Left" Height="23" Margin="104,68,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.name, ElementName=GridUnits}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o11p1y1" Content="Назва" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+                            <Label x:Name="label_C11o1py4" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                            <Button x:Name="addOfficeBu1t1" Content="Редагувати підрозділ" HorizontalAlignment="Left" Margin="10,228,0,0" Grid.Row="1" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.267,1.111" Click="addOfficeBu1t1_Click"/>
+                            <Button x:Name="Hidd1enAdd1WorkTypeBut1" Content="Приховати" Margin="10,270,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.267,1.111" Click="Hidd1enAdd1WorkTypeBut1_Click" />
+                            <TextBox x:Name="OfficeNameA1dd_Copy3" HorizontalAlignment="Left" Height="104" Margin="104,107,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.comments, ElementName=GridUnits}" VerticalAlignment="Top" Width="131" Grid.Row="1"  />
+                            <Label x:Name="label_C1o1p1y_1Copy3" Content="Коментар" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Grid.Row="1" Width="89"/>
+
+                        </Grid>
+                    </Border>
+
+                </DockPanel>
+            </TabItem>
+
+
+        </TabControl>
+        <Label x:Name="Enter" Content="Enter" HorizontalAlignment="Left" Margin="10,420,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</controls:MetroWindow>
+

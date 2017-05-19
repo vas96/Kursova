@@ -1,2 +1,2 @@
-# Practice-agile-
+# Kursowa-Yoba-
 awersomproject

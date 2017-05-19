@@ -1,0 +1,109 @@
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\Building_Company.exe.config
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.csprojResolveAssemblyReference.cache
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\MainWindow.g.cs
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\App.g.cs
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company_MarkupCompile.cache
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company_MarkupCompile.lref
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\Building_Company.exe
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\Building_Company.pdb
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\MahApps.Metro.dll
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\System.Windows.Interactivity.dll
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\MahApps.Metro.pdb
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\MahApps.Metro.xml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\MainWindow.baml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.g.resources
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.Properties.Resources.resources
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.csproj.GenerateResource.Cache
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.exe
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company.pdb
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\App.baml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Resources\Icons.baml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Resources\IconsNonShared.baml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\EntityFramework.dll
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\EntityFramework.xml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\vas\documents\visual studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Building_Company_Content.g.cs
+C:\Users\Vas\Documents\Visual Studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Valid.g.cs
+C:\Users\Vas\Documents\Visual Studio 2015\Projects\Building_Company\Building_Company\obj\Debug\Valid.baml
+C:\Users\Vas\Documents\Visual Studio 2015\Projects\Building_Company\Building_Company\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Building_Company\Building_Company\bin\Debug\Building_Company.exe.config
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.exe
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.pdb
+D:\Building_Company\Building_Company\bin\Debug\Building_Company.exe
+D:\Building_Company\Building_Company\bin\Debug\Building_Company.pdb
+D:\Building_Company\Building_Company\bin\Debug\EntityFramework.dll
+D:\Building_Company\Building_Company\bin\Debug\EntityFramework.SqlServer.dll
+D:\Building_Company\Building_Company\bin\Debug\MahApps.Metro.dll
+D:\Building_Company\Building_Company\bin\Debug\System.Windows.Interactivity.dll
+D:\Building_Company\Building_Company\bin\Debug\EntityFramework.xml
+D:\Building_Company\Building_Company\bin\Debug\EntityFramework.SqlServer.xml
+D:\Building_Company\Building_Company\bin\Debug\MahApps.Metro.pdb
+D:\Building_Company\Building_Company\bin\Debug\MahApps.Metro.xml
+D:\Building_Company\Building_Company\obj\Debug\Resources\Icons.baml
+D:\Building_Company\Building_Company\obj\Debug\Resources\IconsNonShared.baml
+D:\Building_Company\Building_Company\obj\Debug\MainWindow.g.cs
+D:\Building_Company\Building_Company\obj\Debug\Valid.g.cs
+D:\Building_Company\Building_Company\obj\Debug\App.g.cs
+D:\Building_Company\Building_Company\obj\Debug\Building_Company_Content.g.cs
+D:\Building_Company\Building_Company\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Building_Company\Building_Company\obj\Debug\Building_Company_MarkupCompile.cache
+D:\Building_Company\Building_Company\obj\Debug\Building_Company_MarkupCompile.lref
+D:\Building_Company\Building_Company\obj\Debug\App.baml
+D:\Building_Company\Building_Company\obj\Debug\MainWindow.baml
+D:\Building_Company\Building_Company\obj\Debug\Valid.baml
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.g.resources
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.Properties.Resources.resources
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.csproj.GenerateResource.Cache
+D:\Building_Company\Building_Company\obj\Debug\Building_Company.csprojResolveAssemblyReference.cache
+D:\Building_Company 1.1\Building_Company\bin\Debug\Building_Company.exe.config
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.exe
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.pdb
+D:\Building_Company 1.1\Building_Company\bin\Debug\Building_Company.exe
+D:\Building_Company 1.1\Building_Company\bin\Debug\Building_Company.pdb
+D:\Building_Company 1.1\Building_Company\bin\Debug\EntityFramework.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\EntityFramework.SqlServer.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\MahApps.Metro.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\System.Windows.Interactivity.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\EntityFramework.xml
+D:\Building_Company 1.1\Building_Company\bin\Debug\EntityFramework.SqlServer.xml
+D:\Building_Company 1.1\Building_Company\bin\Debug\MahApps.Metro.pdb
+D:\Building_Company 1.1\Building_Company\bin\Debug\MahApps.Metro.xml
+D:\Building_Company 1.1\Building_Company\obj\Debug\Resources\Icons.baml
+D:\Building_Company 1.1\Building_Company\obj\Debug\Resources\IconsNonShared.baml
+D:\Building_Company 1.1\Building_Company\obj\Debug\MainWindow.g.cs
+D:\Building_Company 1.1\Building_Company\obj\Debug\Valid.g.cs
+D:\Building_Company 1.1\Building_Company\obj\Debug\App.g.cs
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company_Content.g.cs
+D:\Building_Company 1.1\Building_Company\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company_MarkupCompile.cache
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company_MarkupCompile.lref
+D:\Building_Company 1.1\Building_Company\obj\Debug\App.baml
+D:\Building_Company 1.1\Building_Company\obj\Debug\MainWindow.baml
+D:\Building_Company 1.1\Building_Company\obj\Debug\Valid.baml
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.g.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.Properties.Resources.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.csproj.GenerateResource.Cache
+D:\Building_Company 1.1\Building_Company\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\Microsoft.SqlServer.Types.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\de\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\es\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\fr\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\it\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\ja\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\ko\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\pt\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\ru\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\zh-Hans\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\zh-Hant\Microsoft.SqlServer.Types.resources.dll
+D:\Building_Company 1.1\Building_Company\obj\Debug\RdlCompile.cache
+D:\Building_Company 1.1\Building_Company\obj\Debug\RdlCompile.compiled
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.FormObj.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.csprojResolveAssemblyReference.cache
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.FormCustReport.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.FormSuppliersReport.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.Help.resources
+D:\Building_Company 1.1\Building_Company\obj\Debug\Building_Company.FormOfficeReport.resources
+D:\Building_Company 1.1\Building_Company\bin\Debug\MetroFramework.Design.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\MetroFramework.dll
+D:\Building_Company 1.1\Building_Company\bin\Debug\MetroFramework.Fonts.dll

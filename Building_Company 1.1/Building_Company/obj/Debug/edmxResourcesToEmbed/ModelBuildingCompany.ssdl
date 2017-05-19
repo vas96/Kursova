@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KR_BD2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CUSTOMERS">
+    <Key>
+      <PropertyRef Name="customerId" />
+    </Key>
+    <Property Name="customerId" Type="int" Nullable="false" />
+    <Property Name="customerName" Type="varchar" MaxLength="44" Nullable="false" />
+    <Property Name="contactLastName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="contatctFirstName" Type="varchar" MaxLength="32" />
+    <Property Name="contactPhone" Type="varchar" MaxLength="30" />
+    <Property Name="addresLine" Type="varchar" MaxLength="62" />
+    <Property Name="city" Type="varchar" MaxLength="40" />
+    <Property Name="country" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="EMPLOYEES">
+    <Key>
+      <PropertyRef Name="employeeId" />
+    </Key>
+    <Property Name="employeeId" Type="int" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="32" />
+    <Property Name="email" Type="varchar" MaxLength="53" />
+    <Property Name="birthDate" Type="date" />
+    <Property Name="homePhone" Type="varchar" MaxLength="56" />
+    <Property Name="hereDate" Type="date" Nullable="false" />
+    <Property Name="addressLine" Type="varchar" MaxLength="84" />
+    <Property Name="country" Type="varchar" MaxLength="30" />
+    <Property Name="salary" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="officeId" Type="int" />
+  </EntityType>
+  <EntityType Name="EMPLOYEES_UNITS">
+    <Key>
+      <PropertyRef Name="employeeId" />
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="employeeId" Type="int" Nullable="false" />
+    <Property Name="idUnit" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MATERIAL">
+    <Key>
+      <PropertyRef Name="idMatterial" />
+    </Key>
+    <Property Name="idMatterial" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="integer_" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="OBJECTS">
+    <Key>
+      <PropertyRef Name="idObject" />
+    </Key>
+    <Property Name="idObject" Type="int" Nullable="false" />
+    <Property Name="orderData" Type="date" />
+    <Property Name="status" Type="varchar" MaxLength="40" />
+    <Property Name="comments" Type="varchar" MaxLength="90" />
+    <Property Name="country" Type="varchar" MaxLength="30" />
+    <Property Name="addressLine" Type="varchar" MaxLength="74" Nullable="false" />
+    <Property Name="customerId" Type="int" />
+  </EntityType>
+  <EntityType Name="OFFICES">
+    <Key>
+      <PropertyRef Name="officeId" />
+    </Key>
+    <Property Name="officeId" Type="int" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="adressLine" Type="varchar" MaxLength="20" />
+    <Property Name="country" Type="varchar" MaxLength="20" />
+    <Property Name="_default_" Type="varchar" MaxLength="22" />
+  </EntityType>
+  <EntityType Name="SPECIALITY">
+    <Key>
+      <PropertyRef Name="idSpeciality" />
+    </Key>
+    <Property Name="idSpeciality" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SPECIALITY_EMPLOYEES">
+    <Key>
+      <PropertyRef Name="idSpeciality" />
+      <PropertyRef Name="employeeId" />
+    </Key>
+    <Property Name="idSpeciality" Type="int" Nullable="false" />
+    <Property Name="employeeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SUPPLIERS">
+    <Key>
+      <PropertyRef Name="supplierID" />
+    </Key>
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="companyName" Type="varchar" MaxLength="50" />
+    <Property Name="contactName" Type="varchar" MaxLength="60" />
+    <Property Name="address" Type="varchar" MaxLength="80" />
+    <Property Name="country" Type="varchar" MaxLength="30" />
+    <Property Name="contactPhone" Type="varchar" MaxLength="20" />
+    <Property Name="fax" Type="varchar" MaxLength="20" />
+    <Property Name="homePage" Type="varchar" MaxLength="33" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UNITS">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idUnit" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="comments" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="used_materials">
+    <Key>
+      <PropertyRef Name="used_Material_Id" />
+    </Key>
+    <Property Name="used_Material_Id" Type="int" Nullable="false" />
+    <Property Name="idObject" Type="int" />
+    <Property Name="number" Type="int" />
+    <Property Name="uniPrice" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="idUnit" Type="int" />
+    <Property Name="supplierID" Type="int" />
+    <Property Name="idMatterial" Type="int" />
+  </EntityType>
+  <EntityType Name="WorkSheldue">
+    <Key>
+      <PropertyRef Name="idWorkShedule" />
+    </Key>
+    <Property Name="idWorkShedule" Type="int" Nullable="false" />
+    <Property Name="idObject" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="80" />
+    <Property Name="startWork" Type="date" />
+    <Property Name="finishWork" Type="date" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+    <Property Name="idUnit" Type="int" />
+    <Property Name="workTypeId" Type="int" />
+  </EntityType>
+  <EntityType Name="WorkType">
+    <Key>
+      <PropertyRef Name="workTypeId" />
+    </Key>
+    <Property Name="workTypeId" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="R_18">
+    <End Role="CUSTOMERS" Type="Self.CUSTOMERS" Multiplicity="0..1" />
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOMERS">
+        <PropertyRef Name="customerId" />
+      </Principal>
+      <Dependent Role="OBJECTS">
+        <PropertyRef Name="customerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_19">
+    <End Role="SPECIALITY" Type="Self.SPECIALITY" Multiplicity="1" />
+    <End Role="SPECIALITY_EMPLOYEES" Type="Self.SPECIALITY_EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SPECIALITY">
+        <PropertyRef Name="idSpeciality" />
+      </Principal>
+      <Dependent Role="SPECIALITY_EMPLOYEES">
+        <PropertyRef Name="idSpeciality" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_23">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="1" />
+    <End Role="SPECIALITY_EMPLOYEES" Type="Self.SPECIALITY_EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEES">
+        <PropertyRef Name="employeeId" />
+      </Principal>
+      <Dependent Role="SPECIALITY_EMPLOYEES">
+        <PropertyRef Name="employeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_28">
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNITS">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_37">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="1" />
+    <End Role="EMPLOYEES_UNITS" Type="Self.EMPLOYEES_UNITS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEES">
+        <PropertyRef Name="employeeId" />
+      </Principal>
+      <Dependent Role="EMPLOYEES_UNITS">
+        <PropertyRef Name="employeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_39">
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="1" />
+    <End Role="EMPLOYEES_UNITS" Type="Self.EMPLOYEES_UNITS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNITS">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="EMPLOYEES_UNITS">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_40">
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OBJECTS">
+        <PropertyRef Name="idObject" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idObject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_41">
+    <End Role="OBJECTS" Type="Self.OBJECTS" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OBJECTS">
+        <PropertyRef Name="idObject" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idObject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_46">
+    <End Role="UNITS" Type="Self.UNITS" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UNITS">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_47">
+    <End Role="SUPPLIERS" Type="Self.SUPPLIERS" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUPPLIERS">
+        <PropertyRef Name="supplierID" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="supplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_49">
+    <End Role="WorkType" Type="Self.WorkType" Multiplicity="0..1" />
+    <End Role="WorkSheldue" Type="Self.WorkSheldue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="workTypeId" />
+      </Principal>
+      <Dependent Role="WorkSheldue">
+        <PropertyRef Name="workTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_51">
+    <End Role="OFFICES" Type="Self.OFFICES" Multiplicity="0..1" />
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OFFICES">
+        <PropertyRef Name="officeId" />
+      </Principal>
+      <Dependent Role="EMPLOYEES">
+        <PropertyRef Name="officeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_52">
+    <End Role="MATERIAL" Type="Self.MATERIAL" Multiplicity="0..1" />
+    <End Role="used_materials" Type="Self.used_materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MATERIAL">
+        <PropertyRef Name="idMatterial" />
+      </Principal>
+      <Dependent Role="used_materials">
+        <PropertyRef Name="idMatterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="KR_BD2ModelStoreContainer">
+    <EntitySet Name="CUSTOMERS" EntityType="Self.CUSTOMERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLOYEES" EntityType="Self.EMPLOYEES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EMPLOYEES_UNITS" EntityType="Self.EMPLOYEES_UNITS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MATERIAL" EntityType="Self.MATERIAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OBJECTS" EntityType="Self.OBJECTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OFFICES" EntityType="Self.OFFICES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPECIALITY" EntityType="Self.SPECIALITY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPECIALITY_EMPLOYEES" EntityType="Self.SPECIALITY_EMPLOYEES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUPPLIERS" EntityType="Self.SUPPLIERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UNITS" EntityType="Self.UNITS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="used_materials" EntityType="Self.used_materials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkSheldue" EntityType="Self.WorkSheldue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkType" EntityType="Self.WorkType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="R_18" Association="Self.R_18">
+      <End Role="CUSTOMERS" EntitySet="CUSTOMERS" />
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+    </AssociationSet>
+    <AssociationSet Name="R_19" Association="Self.R_19">
+      <End Role="SPECIALITY" EntitySet="SPECIALITY" />
+      <End Role="SPECIALITY_EMPLOYEES" EntitySet="SPECIALITY_EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="R_23" Association="Self.R_23">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="SPECIALITY_EMPLOYEES" EntitySet="SPECIALITY_EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="R_28" Association="Self.R_28">
+      <End Role="UNITS" EntitySet="UNITS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_37" Association="Self.R_37">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="EMPLOYEES_UNITS" EntitySet="EMPLOYEES_UNITS" />
+    </AssociationSet>
+    <AssociationSet Name="R_39" Association="Self.R_39">
+      <End Role="UNITS" EntitySet="UNITS" />
+      <End Role="EMPLOYEES_UNITS" EntitySet="EMPLOYEES_UNITS" />
+    </AssociationSet>
+    <AssociationSet Name="R_40" Association="Self.R_40">
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_41" Association="Self.R_41">
+      <End Role="OBJECTS" EntitySet="OBJECTS" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_46" Association="Self.R_46">
+      <End Role="UNITS" EntitySet="UNITS" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_47" Association="Self.R_47">
+      <End Role="SUPPLIERS" EntitySet="SUPPLIERS" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+    <AssociationSet Name="R_49" Association="Self.R_49">
+      <End Role="WorkType" EntitySet="WorkType" />
+      <End Role="WorkSheldue" EntitySet="WorkSheldue" />
+    </AssociationSet>
+    <AssociationSet Name="R_51" Association="Self.R_51">
+      <End Role="OFFICES" EntitySet="OFFICES" />
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="R_52" Association="Self.R_52">
+      <End Role="MATERIAL" EntitySet="MATERIAL" />
+      <End Role="used_materials" EntitySet="used_materials" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
