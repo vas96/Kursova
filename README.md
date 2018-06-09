@@ -1,2 +1,3 @@
-# Kursowa-Yoba-
-awersomproject
+# Куосова робота - будівельна компанія
+(c#, entity framework)
+
